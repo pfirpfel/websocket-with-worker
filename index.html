@@ -1,0 +1,35 @@
+<html>
+<head>
+<title>
+socket test
+</title>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io.connect('http://localhost:5555');
+
+  socket.on('server-hello', function (data) {
+    console.log(data);
+    addMessage(data.message);
+    socket.emit('client-hello', { message: 'hello back!' });
+  });
+
+  socket.on('worker-hello', function (data) {
+    console.log(data);
+    addMessage(data.message);
+  });
+  
+  
+  function addMessage(msg){
+    var messages = document.getElementById('messages');
+    var newP = document.createElement("p");
+    newP.innerHTML = msg;
+    messages.appendChild(newP);
+  }
+</script>
+</head>
+<body>
+<div id="messages">
+</div>
+</body>
+</html>
+
