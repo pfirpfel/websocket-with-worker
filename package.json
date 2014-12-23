@@ -14,6 +14,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "proprietary"
+  "author": "Michael Kuenzli",
+  "license": "MIT",
+  "repository": "https://github.com/pfirpfel/websocket-with-worker"
 }
