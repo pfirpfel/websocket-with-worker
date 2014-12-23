@@ -17,7 +17,20 @@ socket test
     console.log(data);
     addMessage(data.message);
   });
-  
+
+  socket.on('worker-update', function (data) {
+    console.log(data);
+    addMessage(data.message);
+  });
+
+  var clientUpdate = setInterval(
+    function(){
+      var challenge = Math.random();
+      socket.emit('client-update', { challenge: challenge });
+      addMessage('sent challenge: ' + challenge);
+    }
+    , 1000
+  );
   
   function addMessage(msg){
     var messages = document.getElementById('messages');

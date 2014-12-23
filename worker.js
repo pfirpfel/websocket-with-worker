@@ -22,3 +22,11 @@ jobs.process('new_user', function(job, done){
     done();
   }, 2000);
 });
+
+// on challenge job
+jobs.process('challenge', function(job, done){
+  console.log('process new challenge from ' + job.data.id);
+  io.to(job.data.id) // respond only to affected client (don't broadcast)
+    .emit('worker-update', { message: Math.pow(parseFloat(job.data.challenge), 2) });
+  done();
+});

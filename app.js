@@ -22,6 +22,14 @@ io.on('connection', function (socket) {
     if( !err ) console.log( 'new user job created: ' + new_user_job.id );
   });
   
+  socket.on('client-update', function (data) {
+    var challenge_job =
+      jobs.create('challenge', { id: socket.id, challenge: data.challenge })
+          .save(function(err){
+                  if( !err ) console.log( 'new challenge job created: ' + challenge_job.id );
+                });
+  });
+
   socket.on('client-hello', function (data) {
     console.log(data);
   });
