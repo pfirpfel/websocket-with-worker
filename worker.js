@@ -6,6 +6,7 @@ var io = require('socket.io-emitter')( settings.redis );
 
 // redis message queue
 var kue = require('kue');
+kue.app.listen(6666);
 var jobs = kue.createQueue({
  redis: settings.redis 
 });
