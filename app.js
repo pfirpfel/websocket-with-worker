@@ -18,16 +18,20 @@ io.on('connection', function (socket) {
   
   socket.emit('server-hello', { message: 'server: hello ' + socket.id });
   
-  var new_user_job = jobs.create('new_user', { id: socket.id }).save(function(err){
-    if( !err ) console.log( 'new user job created: ' + new_user_job.id );
-  });
+  var new_user_job =
+        jobs.create('new_user', { id: socket.id })
+            .save(function(err){
+                if( !err ) console.log( 'new user job created: ' + new_user_job.id );
+              })
+            .removeOnComplete(true);;
   
   socket.on('client-update', function (data) {
     var challenge_job =
       jobs.create('challenge', { id: socket.id, challenge: data.challenge })
           .save(function(err){
                   if( !err ) console.log( 'new challenge job created: ' + challenge_job.id );
-                });
+                })
+          .removeOnComplete(true);
   });
 
   socket.on('client-hello', function (data) {
