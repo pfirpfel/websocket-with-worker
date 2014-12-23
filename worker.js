@@ -1,10 +1,5 @@
 // settings
-var settings = {
-  redis: {
-    host: '127.0.0.1',
-    port: 6379
-  }
-}
+var settings = require('./settings');
 
 // socket.io emitter
 var io = require('socket.io-emitter')( settings.redis );

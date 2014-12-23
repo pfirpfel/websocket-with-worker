@@ -1,8 +1,9 @@
-var app = require('express')();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-var redis = require('socket.io-redis');
-var kue = require('kue')
+var settings = require('./settings')
+  , app = require('express')()
+  , server = require('http').Server(app)
+  , io = require('socket.io')(server)
+  , redis = require('socket.io-redis')
+  , kue = require('kue')
   , jobs = kue.createQueue();
 
 server.listen(5555);
@@ -11,7 +12,7 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
-io.adapter(redis({ host: 'localhost', port: 6379 }));
+io.adapter(redis(settings.redis));
 
 io.on('connection', function (socket) {
   
